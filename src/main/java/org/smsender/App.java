@@ -1,16 +1,10 @@
 package org.smsender;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.smsender.menu.MainMenu;
 
 public class App {
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
-
-
-
-
+    public static void main(String[] args) {
+        MainMenu.start();
     }
 }
