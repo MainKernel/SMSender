@@ -57,10 +57,11 @@ case $messenger_type in
 
     "Viber")
         adb logcat -c
-        adb shell "am start -a android.intent.action.VIEW -d 'viber://chat?number=${phone_number}' com.viber.voip" > /dev/null
+        adb shell am start -a android.intent.action.VIEW -d viber://chat?number="${phone_number}" com.viber.voip > /dev/null
         sleep 5
-        viberError=$(adb shell logcat -d | grep -E "act=com.viber.voip.action.SYSTEM_DIALOG|(startActivityAsUser) (BAL_ALLOW_VISIBLE_WINDOW) result code=0")
-        if [[ -n $viberError ]] ; then
+        viberError=$(adb shell logcat -d | grep -Eq "act=com.viber.voip.action.SYSTEM_DIALOG|(startActivityAsUser) (BAL_ALLOW_VISIBLE_WINDOW) result code=0" && echo "Found")
+
+        if [[ -z $viberError ]] ; then
             sleep 3
             adb shell input tap 300 2200  # Tap message field
             send_message "$message"
