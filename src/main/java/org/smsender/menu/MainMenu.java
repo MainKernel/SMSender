@@ -2,6 +2,7 @@ package org.smsender.menu;
 
 import org.smsender.script.ScriptExecutor;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -48,7 +49,11 @@ public class MainMenu {
                     break;
                 case "2":
                     if(settings.getSmsText()!=null && settings.getMessengerText()!=null){
-                        ScriptExecutor.executeScript(settings);
+                        try {
+                            ScriptExecutor.executeScript(settings);
+                        } catch (IOException e) {
+                            System.out.println("Something goes wrong (((");
+                        }
                     }else {
                         System.out.println("Set text for SMS and Messengers on Settings.\n");
                     }
