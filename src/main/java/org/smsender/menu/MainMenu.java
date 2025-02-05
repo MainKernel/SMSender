@@ -3,6 +3,7 @@ package org.smsender.menu;
 import org.smsender.script.ScriptExecutor;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -10,7 +11,7 @@ public class MainMenu {
     private static  boolean smsEnabled = false;
 
     public static void start(){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
         boolean alive = true;
         while (alive){
             System.out.println("""
@@ -48,7 +49,17 @@ public class MainMenu {
                     }
                     break;
                 case "2":
-                    if(settings.getSmsText()!=null && settings.getMessengerText()!=null){
+                    if(smsEnabled){
+                        if(settings.getSmsText()!=null && settings.getMessengerText()!=null){
+                            try {
+                                ScriptExecutor.executeScript(settings);
+                            } catch (IOException e) {
+                                System.out.println("Something goes wrong (((");
+                            }
+                        }else {
+                            System.out.println("Set text for SMS and Messengers on Settings.\n");
+                        }
+                    } else if (settings.getMessengers() != null) {
                         try {
                             ScriptExecutor.executeScript(settings);
                         } catch (IOException e) {
@@ -57,6 +68,7 @@ public class MainMenu {
                     }else {
                         System.out.println("Set text for SMS and Messengers on Settings.\n");
                     }
+
                     break;
                 case "3":
                     alive = false;
