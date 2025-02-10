@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Settings {
@@ -18,7 +19,7 @@ public class Settings {
     private String messengerText;
     private String smsText;
 
-    private  List<String> messengers;
+    private  List<String> messengers = new ArrayList<>();
 
     public List<String> getMessengers() {
         return messengers;
@@ -72,7 +73,6 @@ public class Settings {
 
     Settings() {
 
-        messengers = List.of("WhatsApp", "Viber");
         excelFilename = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
         phoneFile = "phones.txt";
         String jarPath = URLDecoder.decode(Settings.class.getProtectionDomain().getCodeSource()

@@ -133,11 +133,9 @@ case $messenger_type in
         ;;
 
     "SMS")
-        adb shell am start -a android.intent.action.SENDTO -d "sms:${phone_number}" > /dev/null
+        adb shell am start -a android.intent.action.SENDTO -d "sms://${phone_number}?body=${message}" > /dev/null
         sleep 2
-        adb shell input tap 400 2200  # Tap message field
-        sleep 1
-        send_message "$message"
+        adb shell input tap 980 2200
         sleep 2
         adb shell am force-stop com.google.android.apps.messaging
         echo "SMS"
