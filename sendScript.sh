@@ -13,8 +13,10 @@ function stop_app {
 function display_setting {
     if [[ $1 == "start" ]]; then
         adb shell settings put global stay_on_while_plugged_in 3 > /dev/null
+        adb shell settings put global heads_up_notifications_enabled 0
     else
         adb shell settings delete global stay_on_while_plugged_in > /dev/null
+        adb shell settings put global heads_up_notifications_enabled 1
     fi
 }
 
